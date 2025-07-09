@@ -1,0 +1,22 @@
+.ChatContainer {
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+}
+
+.PrevChatButton {
+  border-radius: 10px;
+  text-align: start;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.PrevChatButton:hover, .PrevChatButton:active {background-color: #3a3a3a;}
+
+
+.NewChatButton {
+    background-color: #3a3a3a;
+    border-radius: 10px
+}

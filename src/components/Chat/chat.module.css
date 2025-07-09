@@ -1,0 +1,77 @@
+.Chat {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.Loader {
+  height: 10px;
+  width: 40px;
+  --c:no-repeat linear-gradient(white 0 0);
+  background: var(--c), var(--c), var(--c), var(--c);
+  background-size: 26% 3px;
+  animation: l2 1s infinite;
+  margin-left: 10px;
+}
+@keyframes l2 {
+  0%,
+  70%,
+  100% {background-position: calc(0*100%/3) 100%,calc(1*100%/3) 100%,calc(2*100%/3) 100%,calc(3*100%/3) 100%}
+  14%  {background-position: calc(0*100%/3) 0   ,calc(1*100%/3) 100%,calc(2*100%/3) 100%,calc(3*100%/3) 100%}
+  28%  {background-position: calc(0*100%/3) 100%,calc(1*100%/3) 0   ,calc(2*100%/3) 100%,calc(3*100%/3) 100%}
+  42%  {background-position: calc(0*100%/3) 100%,calc(1*100%/3) 100%,calc(2*100%/3) 0   ,calc(3*100%/3) 100%}
+  56%  {background-position: calc(0*100%/3) 100%,calc(1*100%/3) 100%,calc(2*100%/3) 100%,calc(3*100%/3) 0   }
+}
+
+.ChatContainer {
+  background-color: #3a3a3a;
+  min-height: 75vh;
+  max-height: 75vh;
+  min-width: 500px;
+  max-width: 800px;
+  border-radius: 15px;
+  border: 1px solid greenyellow;
+  overflow-y: auto;
+}
+
+.InputContainer {
+  display: flex;
+  margin-top: auto;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 2px;
+}
+
+.UserInput {
+  min-height: 34px;
+  border-radius: 15px;
+  margin-right: 3px;
+  flex-grow: 1;
+  padding: 10px 10px 0px 10px;
+  resize: vertical;
+}
+
+.SendIcon {
+  height: 34px;
+}
+
+.UserChat {
+  background-color: gray;
+  margin-left: auto;
+  margin-right: 3px;
+  padding: 10px 10px 10px 10px;
+}
+
+.AIChat, .Loader {
+  background-color: #3a3a3a;
+  margin-right: 100px;
+  margin-left: 3px;
+}
+
+.UserChat,
+.AIChat {
+  width: fit-content;
+  border-radius: 20px;
+  padding: 8px 8px;
+  font-size: small;
+}
