@@ -1,5 +1,5 @@
 import styles from "./App.module.css";
-import { Chat } from "./components/chat/chat";
+import { Chat } from "./components/Chat/chat";
 import { Sidebar } from "./components/Sidebar/sidebar";
 import { useEffect, useState } from "react";
 
@@ -57,7 +57,7 @@ function App() {
   return (
     <div className={styles.App}>
       <section className={styles.Header}>
-        <img src="/chat-bot.png" alt="" className={styles.Logo} />
+        <img src="./chat-bot.png" alt="" className={styles.Logo} />
         <h4 className={styles.Title}>AI SUPER AIRMAN</h4>
       </section>
       <div className={styles.Main}>

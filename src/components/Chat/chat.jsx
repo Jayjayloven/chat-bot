@@ -130,7 +130,7 @@ export function Chat({
         />
         <input
           type="image"
-          src="/chat-bot/send-icon.png"
+          src="./send-icon.png"
           alt=""
           className={styles.SendIcon}
           onClick={handleContentSend}
