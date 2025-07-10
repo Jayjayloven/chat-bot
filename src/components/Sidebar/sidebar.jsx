@@ -7,12 +7,12 @@ export function Sidebar({
   selectedChat,
   setSelectedChat,
 }) {
-  useEffect(() => {
-  }, [selectedChat]);
+  useEffect(() => {}, [selectedChat]);
 
   function handlePrevChatClick(id) {
     const selected = prevChats.find((prevChat) => prevChat.id === id);
     setSelectedChat(selected);
+    buttonRef.styles.color.gray;
   }
 
   function handleNewChat() {
@@ -38,7 +38,7 @@ export function Sidebar({
       {prevChats.map((chat, index) => (
         <button
           key={index}
-          className={styles.PrevChatButton}
+          className={`${styles.PrevChatButton} ${selectedChat.id === chat.id ? styles.PrevChatButtonActive : ''}`}
           onClick={() => handlePrevChatClick(chat.id)}
         >
           {" "}
