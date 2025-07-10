@@ -46,7 +46,6 @@ export function Chat({
     });
 
     for await (const chunk of response) {
-      console.log(chunk);
 
       if (AIResponding === true) {
         setChats((prevChats) => {

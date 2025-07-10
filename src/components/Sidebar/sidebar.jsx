@@ -8,7 +8,6 @@ export function Sidebar({
   setSelectedChat,
 }) {
   useEffect(() => {
-    console.log("Selected Chat Updated:", selectedChat);
   }, [selectedChat]);
 
   function handlePrevChatClick(id) {

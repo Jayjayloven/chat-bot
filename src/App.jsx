@@ -51,7 +51,6 @@ function App() {
           : chat
       )
     );
-    console.log(selectedChat)
   }, [selectedChat]);
 
   return (
