@@ -121,7 +121,7 @@ export function Chat({
       </div>
       <div className={styles.InputContainer}>
         <textarea
-          placeholder="Message Super Airman"
+          placeholder="Message AI"
           className={styles.UserInput}
           value={content}
           onChange={handleContentChange}

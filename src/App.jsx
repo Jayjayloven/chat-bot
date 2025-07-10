@@ -57,7 +57,7 @@ function App() {
     <div className={styles.App}>
       <section className={styles.Header}>
         <img src="./chat-bot.png" alt="" className={styles.Logo} />
-        <h4 className={styles.Title}>AI SUPER AIRMAN</h4>
+        <h4 className={styles.Title}>AI CHATBOT</h4>
       </section>
       <div className={styles.Main}>
         <Sidebar
