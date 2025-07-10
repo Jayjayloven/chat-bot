@@ -13,10 +13,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-* {
-  border: 1px solid red;
-}
-
 .App {
   background-color: #2E2E2E;
 }
