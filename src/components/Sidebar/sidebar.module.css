@@ -22,3 +22,7 @@
     background-color: #3a3a3a;
     border-radius: 10px
 }
+
+.NewChatButton, .PrevChatButton {margin-right: 10px;}
+
+

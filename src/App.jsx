@@ -65,6 +65,7 @@ function App() {
           selectedChat={selectedChat}
           setSelectedChat={setSelectedChat}
           setPrevChats={setPrevChats}
+          className={styles.Sidebar}
         ></Sidebar>
         <Chat
           prevChats={prevChats}
