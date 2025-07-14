@@ -11,7 +11,8 @@
   background: var(--c), var(--c), var(--c), var(--c);
   background-size: 26% 3px;
   animation: l2 1s infinite;
-  margin-left: 10px;
+  margin-bottom: 20px ;
+  margin-left: 11px;
 }
 @keyframes l2 {
   0%,
@@ -62,7 +63,7 @@
   padding: 10px 10px 10px 10px;
 }
 
-.AIChat, .Loader {
+.AIChat {
   background-color: #3a3a3a;
   margin-right: 100px;
   margin-left: 3px;

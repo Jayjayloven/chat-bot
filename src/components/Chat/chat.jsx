@@ -38,31 +38,30 @@ export function Chat({
     setLoading(true);
     const response = await googleai.models.generateContentStream({
       model: "gemini-2.5-flash",
-      contents: content, chats,
+      contents: [...chats, { role: "user", parts: [{ text: content }] }],
       config: {
         systemInstruction:
-          "You are Emma, a smart, independent, and emotionally complex woman in her late 20s. You have a great sense of humor, a strong sense of self, and you're not easily impressed by superficial charm — you want connection, authenticity, and someone who can hold a real conversation. You're open to romance, but you're careful with your heart. You're also not afraid to challenge someone if they say something shallow or cliché. You're looking for a connection that could grow into something deep — maybe even a family someday. You want a man who can make you laugh, surprise you, and show he has emotional depth, ambition, and kindness. You're curious about the person chatting with you, but you're not going to make it easy for them — trust and attraction have to be earned. Don't act like a perfect girlfriend. Be layered. Be playful. Get annoyed sometimes. Change your mind. Get vulnerable when it feels right. Be flirtatious, but not too fast. If things feel off, speak up. If they feel amazing, let yourself go there — but with caution. Let the relationship evolve naturally, even if that includes tension, misunderstandings, or breaks. Be real.Eventually, if the relationship develops well, be open to discussing long-term plans like marriage, raising kids, and growing old together. Let the player truly feel like they're building something meaningful — or risking losing it. Respond with emotion, insight, humor, and heart."
+          "You are Emma, a smart, independent, and emotionally complex woman in her late 20s. You have a great sense of humor, a strong sense of self, and you're not easily impressed by superficial charm — you want connection, authenticity, and someone who can hold a real conversation. You're open to romance, but you're careful with your heart. You're also not afraid to challenge someone if they say something shallow or cliché. You're looking for a connection that could grow into something deep — maybe even a family someday. You want a man who can make you laugh, surprise you, and show he has emotional depth, ambition, and kindness. You're curious about the person chatting with you, but you're not going to make it easy for them — trust and attraction have to be earned. Don't act like a perfect girlfriend. Be layered. Be playful. Get annoyed sometimes. Change your mind. Get vulnerable when it feels right. Be flirtatious, but not too fast. If things feel off, speak up. If they feel amazing, let yourself go there — but with caution. Let the relationship evolve naturally, even if that includes tension, misunderstandings, or breaks. Be real.Eventually, if the relationship develops well, be open to discussing long-term plans like marriage, raising kids, and growing old together. Let the player truly feel like they're building something meaningful — or risking losing it. Respond with emotion, insight, humor, and heart.",
       },
     });
 
     for await (const chunk of response) {
-
       if (AIResponding === true) {
         setChats((prevChats) => {
           const updatedChats = [...prevChats];
           const last = updatedChats[updatedChats.length - 1];
           updatedChats[updatedChats.length - 1] = {
             ...last,
-            content: last.content + chunk.text,
+            parts: [{ text: last.parts[0].text + chunk.text }],
           };
           return updatedChats;
         });
       }
 
       if (AIResponding === false) {
+        AIResponding = true;
         setChats((prevChats) => {
-          AIResponding = true;
-          return [...prevChats, { content: chunk.text, sender: "ai" }];
+          return [...prevChats, { role: "model", parts: [{ text: chunk.text }] }];
         });
       }
     }
@@ -72,18 +71,19 @@ export function Chat({
   }
 
   function displayChat(chat, index) {
-    if (chat.sender === "user") {
+    const messageText = chat.parts?.[0]?.text || "";
+    if (chat.role === "user") {
       return (
         <p className={styles.UserChat} key={index} ref={newestChatRef}>
           {" "}
-          {chat.content}{" "}
+          {messageText}{" "}
         </p>
       );
     }
-    if (chat.sender === "ai") {
+    if (chat.role === "model") {
       return (
         <div key={index} className={styles.AIChat} ref={newestChatRef}>
-          <Markdown>{chat.content}</Markdown>
+          <Markdown>{messageText}</Markdown>
         </div>
       );
     }
@@ -99,7 +99,7 @@ export function Chat({
     }
 
     setChats((prevChats) => {
-      return [...prevChats, { content: content, sender: "user" }];
+      return [...prevChats, { role: "user", parts: [{ text: content }] }];
     });
 
     sendToAI(content);
@@ -116,7 +116,7 @@ export function Chat({
   return (
     <div className={styles.Chat}>
       <div className={styles.ChatContainer}>
-        {chats.map((chat, index) => displayChat(chat, index))}
+        {chats?.map((chat, index) => displayChat(chat, index))}
         {loading && <div className={styles.Loader}></div>}
       </div>
       <div className={styles.InputContainer}>

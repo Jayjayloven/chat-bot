@@ -8,44 +8,49 @@ function App() {
     {
       id: 1,
       chatName: "TEST1",
-      chats: [
-        { content: "Hello! How can I assist you today?", sender: "ai" },
-      ],
+      chats: {
+        role: "model",
+        parts: [{ text: "Hello! How can I assist you today?" }],
+      },
     },
     {
       id: 2,
       chatName: "TEST2",
-      chats: [
-        { content: "Hello! How can I assist you today?", sender: "ai" },
-      ],
+      chats: {
+        role: "model",
+        parts: [{ text: "Hello! How can I assist you today?" }],
+      },
     },
     {
       id: 3,
       chatName: "TEST3",
-      chats: [
-        { content: "Hello! How can I assist you today?", sender: "ai" },
-      ],
+      chats: {
+        role: "model",
+        parts: [{ text: "Hello! How can I assist you today?" }],
+      },
     },
     {
       id: 4,
       chatName: "TEST4",
-      chats: [
-        { content: "Hello! How can I assist you today?", sender: "ai" },
-      ],
+      chats: {
+        role: "model",
+        parts: [{ text: "Hello! How can I assist you today?" }],
+      },
     },
   ]);
 
   const [selectedChat, setSelectedChat] = useState({
     id: 1,
     chatName: "TEST1",
-    chats: [
-      { content: "Hello! How can I assist you today?", sender: "ai" },
-    ],
+    chats: [{
+        role: "model",
+        parts: [{ text: "Hello! How can I assist you today?" }],
+      }],
   });
 
   useEffect(() => {
-    setPrevChats((prevChats) => 
-      prevChats.map((chat) => 
+    setPrevChats((prevChats) =>
+      prevChats.map((chat) =>
         chat.id === selectedChat.id
           ? { ...chat, chats: selectedChat.chats }
           : chat
