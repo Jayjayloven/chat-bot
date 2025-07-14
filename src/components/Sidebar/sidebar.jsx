@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import styles from "./sidebar.module.css";
 
 export function Sidebar({
@@ -7,12 +6,9 @@ export function Sidebar({
   selectedChat,
   setSelectedChat,
 }) {
-  useEffect(() => {}, [selectedChat]);
-
   function handlePrevChatClick(id) {
     const selected = prevChats.find((prevChat) => prevChat.id === id);
     setSelectedChat(selected);
-    buttonRef.styles.color.gray;
   }
 
   function handleNewChat() {
@@ -22,12 +18,13 @@ export function Sidebar({
         id: prev.length + 1,
         chatName: `TEST${prev.length + 1}`,
         chats: [
-          { content: "Hello! How can I assist you today?", sender: "ai" },
+          {
+            role: "model",
+            parts: [{ text: "Hello! How can I assist you today?" }],
+          },
         ],
       },
     ]);
-
-    setSelectedChat(prevChats.at(-1));
   }
 
   return (
@@ -35,10 +32,12 @@ export function Sidebar({
       <button className={styles.NewChatButton} onClick={handleNewChat}>
         NEW CHAT
       </button>
-      {prevChats.map((chat, index) => (
+      {prevChats.map((chat) => (
         <button
-          key={index}
-          className={`${styles.PrevChatButton} ${selectedChat.id === chat.id ? styles.PrevChatButtonActive : ''}`}
+          key={chat.id}
+          className={`${styles.PrevChatButton} ${
+            selectedChat.id === chat.id ? styles.PrevChatButtonActive : ""
+          }`}
           onClick={() => handlePrevChatClick(chat.id)}
         >
           {" "}

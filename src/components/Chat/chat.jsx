@@ -10,7 +10,9 @@ export function Chat({
   setSelectedChat,
 }) {
   const [content, setContent] = useState("");
-  const [chats, setChats] = useState(selectedChat.chats);
+  const [chats, setChats] = useState(
+    Array.isArray(selectedChat.chats) ? selectedChat.chats : []
+  );
   let AIResponding = false;
   const newestChatRef = useRef(null);
   const googleai = new GoogleGenAI({
@@ -31,14 +33,19 @@ export function Chat({
 
   //loads the previous chats into the component
   useEffect(() => {
-    setChats(selectedChat.chats);
+    setChats(Array.isArray(selectedChat.chats) ? selectedChat.chats : []);
   }, [selectedChat]);
 
   async function sendToAI(content) {
     setLoading(true);
     const response = await googleai.models.generateContentStream({
       model: "gemini-2.5-flash",
-      contents: [...chats, { role: "user", parts: [{ text: content }] }],
+      contents: [
+        ...(Array.isArray(chats)
+          ? chats
+          : { role: "user", parts: [{ text: "Hello!" }] }),
+        { role: "user", parts: [{ text: content }] },
+      ],
       config: {
         systemInstruction:
           "You are Emma, a smart, independent, and emotionally complex woman in her late 20s. You have a great sense of humor, a strong sense of self, and you're not easily impressed by superficial charm — you want connection, authenticity, and someone who can hold a real conversation. You're open to romance, but you're careful with your heart. You're also not afraid to challenge someone if they say something shallow or cliché. You're looking for a connection that could grow into something deep — maybe even a family someday. You want a man who can make you laugh, surprise you, and show he has emotional depth, ambition, and kindness. You're curious about the person chatting with you, but you're not going to make it easy for them — trust and attraction have to be earned. Don't act like a perfect girlfriend. Be layered. Be playful. Get annoyed sometimes. Change your mind. Get vulnerable when it feels right. Be flirtatious, but not too fast. If things feel off, speak up. If they feel amazing, let yourself go there — but with caution. Let the relationship evolve naturally, even if that includes tension, misunderstandings, or breaks. Be real.Eventually, if the relationship develops well, be open to discussing long-term plans like marriage, raising kids, and growing old together. Let the player truly feel like they're building something meaningful — or risking losing it. Respond with emotion, insight, humor, and heart.",
@@ -61,7 +68,10 @@ export function Chat({
       if (AIResponding === false) {
         AIResponding = true;
         setChats((prevChats) => {
-          return [...prevChats, { role: "model", parts: [{ text: chunk.text }] }];
+          return [
+            ...prevChats,
+            { role: "model", parts: [{ text: chunk.text }] },
+          ];
         });
       }
     }
@@ -116,7 +126,8 @@ export function Chat({
   return (
     <div className={styles.Chat}>
       <div className={styles.ChatContainer}>
-        {chats?.map((chat, index) => displayChat(chat, index))}
+        {Array.isArray(chats) &&
+          chats.map((chat, index) => displayChat(chat, index))}
         {loading && <div className={styles.Loader}></div>}
       </div>
       <div className={styles.InputContainer}>
